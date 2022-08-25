@@ -121,90 +121,85 @@ var roomTemplate = {
     }
 }
 
-try{
-    io.on('connection', (socket) => {
+io.on('connection', (socket) => {
 
-        
+    socket.on('newRoom', (id) => {
+        (async () => {
+            socket.join(id)
+            if( await CheckExist(id) && id.length === 12){
+                dbinsert(id, roomTemplate)
+            }
+        })()
+    })
 
-        socket.on('newRoom', (id) => {
+    socket.on('new-user', (roomID, callback) => {
+        userID = createID(15)
+        callback(userID)
+    })
+
+    socket.on('FirstCon',(ID, userID)=>{
+        try{
             (async () => {
-                socket.join(id)
-                if( await CheckExist(id) && id.length === 12){
-                    dbinsert(id, roomTemplate)
+                await io.to(socket.id).emit('First-Connect', await AddUserSql(userID, ID))
+                if(await isPlaying(ID)){
+                    socket.to(ID).emit('FilmTimeRequest',({socketto: socket.id}))
+                }else{
+                    await io.to(socket.id).emit('First-ConnectPlayListUpdate', await GetFilmUrl(ID) )
                 }
-            })()
-        })
+                socket.to(ID).emit('PeopleUpdate', await PeopleCheck(ID))
+                io.to(socket.id).emit('PeopleUpdate', await PeopleCheck(ID))
+            })()  
+        }catch(e){console.log(e)}
+    })
 
-        socket.on('new-user', (roomID, callback) => {
-            userID = createID(15)
-            callback(userID)
-        })
+    socket.on('FilmTimeResponse',(obj) => {
+        (async () => {
+            let x = await GetFilmUrl(obj.RoomID)
+            x.FilmRef['FilmTime'] = obj.time
+            x['delay'] = obj.delay
+            socket.to(obj.socketto).emit('First-ConnectPlayListUpdate', (x))
+        })()
+    })
 
-        socket.on('FirstCon',(ID, userID)=>{
-            try{
-                (async () => {
-                    await io.to(socket.id).emit('First-Connect', await AddUserSql(userID, ID))
-                    if(await isPlaying(ID)){
-                        socket.to(ID).emit('FilmTimeRequest',({socketto: socket.id}))
-                    }else{
-                        await io.to(socket.id).emit('First-ConnectPlayListUpdate', await GetFilmUrl(ID) )
-                    }
-                    socket.to(ID).emit('PeopleUpdate', await PeopleCheck(ID))
-                    io.to(socket.id).emit('PeopleUpdate', await PeopleCheck(ID))
-                })()  
-            }catch(e){console.log(e)}
-        })
+    socket.on('PlayPause', (obj) => {
+        (async () => {
+            console.log(obj.RoomID)
+            socket.to(obj.RoomID).emit('PlayPauseResponse', obj.Status)
+            io.to(socket.id).emit('PlayPauseResponse', obj.Status)
+            StatusUpdate(obj)
+            if(obj.Status == true){
+                FilmTimeUpdate(obj)
+            }  
+        })()    
+    })
 
-        socket.on('FilmTimeResponse',(obj) => {
-            (async () => {
-                let x = await GetFilmUrl(obj.RoomID)
-                x.FilmRef['FilmTime'] = obj.time
-                x['delay'] = obj.delay
-                socket.to(obj.socketto).emit('First-ConnectPlayListUpdate', (x))
-            })()
-        })
+    socket.on('ChangeSeekReq', (obj) => {
+        socket.to(obj.RoomID).emit('ChangeSeekRes', obj.played)
+    })
 
-        socket.on('PlayPause', (obj) => {
-            (async () => {
-                console.log(obj.RoomID)
-                socket.to(obj.RoomID).emit('PlayPauseResponse', obj.Status)
-                io.to(socket.id).emit('PlayPauseResponse', obj.Status)
-                StatusUpdate(obj)
-                if(obj.Status == true){
-                    FilmTimeUpdate(obj)
-                }  
-            })()    
-        })
+    socket.on('NickUpdate', (obj) => {
+            NickUpdate(obj)  
+    }) 
 
-        socket.on('ChangeSeekReq', (obj) => {
-            socket.to(obj.RoomID).emit('ChangeSeekRes', obj.played)
-        })
-
-        socket.on('NickUpdate', (obj) => {
-                NickUpdate(obj)  
-        }) 
-
-        socket.on('send-message', (obj) => {
-            (async () => {
-                let x = await FindNickSql(obj.id, obj.RoomID)
-                obj['Nick'] = x.nick
-                obj['avatar'] = x.avatar
-                socket.to(obj.RoomID).emit('receive-message', (obj))
-            })()
-        })
+    socket.on('send-message', (obj) => {
+        (async () => {
+            let x = await FindNickSql(obj.id, obj.RoomID)
+            obj['Nick'] = x.nick
+            obj['avatar'] = x.avatar
+         socket.to(obj.RoomID).emit('receive-message', (obj))
+        })()
+    })
     
-        socket.on('AddFilm',(obj) => {
-            socket.to(obj.RoomID).emit('PlayListUpdate', obj.Url)
-            AddLinkToPlayListSql(obj) 
-        })
+    socket.on('AddFilm',(obj) => {
+        socket.to(obj.RoomID).emit('PlayListUpdate', obj.Url)
+        AddLinkToPlayListSql(obj) 
+    })
 
-        socket.on('RemoveFilmDB', ID =>{
-            RemoveFilm(ID)
-        })
-    });
-}catch(e){
-    console.log(e)
-}
+    socket.on('RemoveFilmDB', ID =>{
+        RemoveFilm(ID)
+    })
+});
+
 
 server.listen(4000);
 
