@@ -15,5 +15,11 @@ The App is currently being hosted [here](http://130.61.120.243/). Getting starte
   - socket.io-client Version 4.5.1
   - mui Version 5.9.3
 - Oracle NoSQL Database
+## In the Future
+Base functionality of the App is complete, but it doesn't mean we are done yet. Here are some examples of features we plan to add in the near future:
+- Playlist preview
+- RoomMaster (user with priority over others)
+- More sources for videos
+- Responsiveness for Room Page
 ## Rights to use
 We created StreamWatch to test our abilities with React and NodeJS, so feel free to use it anywhere you want
