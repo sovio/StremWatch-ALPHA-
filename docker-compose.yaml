@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  backend:
+    build: ./BackEnd
+    container_name: BackEnd_c
+    volumes:
+      - "C:/Users/sovio/.ssh:/c"
+  frontend:
+    build: ./FrontEnd
+    container_name: FrontEnd_c
+    ports:
+      - '80:3000'
+    stdin_open: true
+    tty: true

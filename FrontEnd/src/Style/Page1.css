@@ -1,0 +1,291 @@
+body {
+    background-color: #020e21;
+}
+
+.MainVideoContainer{
+    position: relative;
+    display: flex;
+    margin-top: 20px;
+}
+
+.PlayerWrapper {
+    margin: 20px 0 0 20px;
+    width: 1280px;
+    height: 720px;
+    position: relative
+}
+
+.ControlsWrapper {
+    position: absolute;
+    display: flex;
+    justify-content:flex-end;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+    z-index: 1
+}
+
+.button {
+    color: #777 !important;
+    font-size: 50px !important;
+    transform: scale(0.9) !important;
+    
+}
+.button:hover {
+    color: #fff !important;
+    transform: scale(1) !important;
+}
+.VolumeBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.css-1qx01vb-MuiStack-root {
+    margin: 0 !important;
+}
+
+.TimeSlider {
+    width: 100%;
+}
+
+.FullScreenButton {
+    justify-content: center ;
+    align-items: center ;  
+}
+.InputHolder {
+    display: flex;
+    justify-content: center;
+    width: 1280px;
+    margin: 0 20px 0 0;
+}
+.ValueInput {
+    width: 700px;
+    font-size: 20px;
+    border: 0;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    outline: none;
+    box-shadow: 0px 0px 10px white;
+}
+
+.ValueInput::placeholder {
+    color: black;
+    opacity: 0.5;
+  }
+
+.InfoInputBox {
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: white;
+    padding: 0.1% 10px 0 5px;
+
+    box-shadow: 0px 0px 10px white;
+  }
+
+/* CHAT STYLE */
+
+.PlaylistContainer {
+color: white;
+text-align: center;
+}
+
+.ChatBox {
+    position: relative;
+    margin: 0 20px 0 20px;
+    background-color: rgba(0, 0, 0);
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px black, 0px 0px 10px black inset ;
+}
+
+.ChooseChatBox {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px dashed white;
+    margin: 15px
+}
+
+.ChatBoxItem {
+    font-size: 30px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px dotted white;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow .2s, transform .2s
+}
+
+.ChatBoxItem:hover {
+    box-shadow: 0px 0px 10px white;
+    transform: translateY(-2px);
+}
+
+.BoxC {
+    position: absolute;
+   /* background-color: rgba(255, 0, 0, 0.5); */
+    width: 100%;
+    height: 88%;
+    visibility: hidden;
+}
+
+.MessageContainer {
+
+    visibility: visible;
+}
+
+.PeopleContainer {
+  
+}
+
+.PeopleBox {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    width: 100%;
+    height: 96.7%;
+}
+
+.UserCard {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px white, 0 0 10px white inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.UserAvatar > img{
+    width: 128px;
+}
+
+.UserNick {
+    color: white;
+    font-size: 28px;
+    margin-top: 30px;
+}
+
+.UserCard:nth-child(n+3){
+    margin-top: 40px;
+}
+
+.MassagesBox {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    width: 100%;
+    height: 96.7%;
+}
+
+.SendMassageInputBox {
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+}
+
+.SendMassageInput {
+    background-color: rgba(255, 255, 255, 1);
+    border: 0;
+    padding-left: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 0 20px white;
+    color: black;
+    outline: none;
+    width: 99.7%;
+}
+
+.avatarbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MassageMainBox {
+    display: flex;
+    margin: 0px 0px 0px 10px;
+    width: 100%;
+    padding-top: 20px;
+}
+.MassageMainBoxGuess {
+    display: flex;
+    justify-content: right;
+    flex-direction: row-reverse;
+    margin: 0px 10px 0px -10px;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.avatarico {
+    width: 64px;
+}
+
+.bubble {
+    flex-direction: column;
+    font-family: sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 100px;
+    background: #fff;
+    border-radius: 40px;
+    padding: 18px;
+    text-align: center;
+    color: #000;
+    margin: 0 10px 0 10px;
+    box-shadow: 0 0 10px white;
+}
+
+
+
+.DataMassageHolder {
+    margin-top: -10px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.NickBox{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.NickInfoBox {
+    text-align: center;
+    padding: 0.2% 5px 0.2% 2px;
+    background-color: white;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: -1px 0 10px white;
+    
+}
+
+.NickInput {
+    border: 0;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 1px 0 10px white;
+    outline: none;
+}
+
+  

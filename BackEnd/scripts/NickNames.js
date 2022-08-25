@@ -1,0 +1,1 @@
+module.exports = ['Iza', 'Kuba', 'Dawid','Kaka', 'Sovio', 'Zehlan']

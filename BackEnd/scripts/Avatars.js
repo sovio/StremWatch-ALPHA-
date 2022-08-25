@@ -1,0 +1,1 @@
+module.exports = ['bear.png', 'gamer.png', 'hacker.png', 'man.png']
